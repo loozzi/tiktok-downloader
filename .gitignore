@@ -1,0 +1,15 @@
+/__pycache__/
+*.py[cod]
+*$py.class
+__pycache__/
+.pytest_cache/
+
+output/
+dist/
+build/
+venv/
+
+*.spec
+*.html
+*.key
+*.rar
