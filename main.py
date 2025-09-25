@@ -1,10 +1,8 @@
-import asyncio
 import json
 import os
 from abc import ABC, abstractmethod
 
 import requests
-from pyppeteer import launch
 
 from key_management import check_license
 
@@ -454,38 +452,21 @@ class TiktokService(BaseService):
     def get_video_info(self, video_url: str):
         id = self.extract_video_id_from_url(video_url)
 
-        async def get_content(url):
-            browser = await launch(headless=True)
-            page = await browser.newPage()
-            await page.setUserAgent(
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-                "(KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
-            )
-            await page.goto(url)
-            content = await page.content()
-            await browser.close()
-            return content
+        r = requests.get(video_url, headers={"User-Agent": "Mozilla/5.0"})
+        if r.status_code != 200:
+            raise Exception(f"TikTok returned status code {r.status_code}")
 
-        # Create new event loop for this thread if one doesn't exist
-        try:
-            loop = asyncio.get_event_loop()
-        except RuntimeError:
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
-        
-        r_text = loop.run_until_complete(get_content(video_url))
-
-        start = r_text.find('<script id="SIGI_STATE" type="application/json">')
+        start = r.text.find('<script id="SIGI_STATE" type="application/json">')
         if start != -1:
             start += len('<script id="SIGI_STATE" type="application/json">')
-            end = r_text.find("</script>", start)
+            end = r.text.find("</script>", start)
 
             if end == -1:
                 raise Exception(
                     "TikTok returned an invalid response.",
                 )
 
-            data = json.loads(r_text[start:end])
+            data = json.loads(r.text[start:end])
             video_info = data["ItemModule"][id]
         else:
             # Try __UNIVERSAL_DATA_FOR_REHYDRATION__ next
@@ -493,7 +474,7 @@ class TiktokService(BaseService):
             # extract tag <script id="__UNIVERSAL_DATA_FOR_REHYDRATION__" type="application/json">{..}</script>
             # extract json in the middle
 
-            start = r_text.find(
+            start = r.text.find(
                 '<script id="__UNIVERSAL_DATA_FOR_REHYDRATION__" type="application/json">'
             )
             if start == -1:
@@ -504,14 +485,14 @@ class TiktokService(BaseService):
             start += len(
                 '<script id="__UNIVERSAL_DATA_FOR_REHYDRATION__" type="application/json">'
             )
-            end = r_text.find("</script>", start)
+            end = r.text.find("</script>", start)
 
             if end == -1:
                 raise Exception(
                     "TikTok returned an invalid response.",
                 )
 
-            data = json.loads(r_text[start:end])
+            data = json.loads(r.text[start:end])
             default_scope = data.get("__DEFAULT_SCOPE__", {})
             video_detail = default_scope.get("webapp.video-detail", {})
             if video_detail.get("statusCode", 0) != 0:  # assume 0 if not present

@@ -140,14 +140,52 @@ class TikTokVideoScraper:
         ]
         selected_ua = random.choice(user_agents)
 
-        # Cookie for authentication
-        self.cookie = "tt_chain_token=NXY2vq+Bf7QgLKxRuxwQmQ==; d_ticket=9ed8ba9e7f560649c64a631822f0e99dce082; ttwid=1%7CJPqtq2oITwOsE_W7yxTSRAi-BPH-K_RjtfAs0zDi5Jc%7C1743418462%7Ccd9eae413518d7700da4ced17519cc2b7827b5ed10fdfd41b8abda4466125c7a; uid_tt=659d5c3f523ed5a506a175c0c3b8a21bb315984a75f1e095c2c7d5f5361605b2; uid_tt_ss=659d5c3f523ed5a506a175c0c3b8a21bb315984a75f1e095c2c7d5f5361605b2; sid_tt=0b2f2a023d2ae0e1a8cd8abdb8dd7ea5; sessionid=0b2f2a023d2ae0e1a8cd8abdb8dd7ea5; sessionid_ss=0b2f2a023d2ae0e1a8cd8abdb8dd7ea5; store-idc=alisg; store-country-code=vn; store-country-code-src=uid; tt-target-idc=alisg; tt-target-idc-sign=lcEjHl9TOWQL659Rg1vYNb82LkuSGPHnIa9kTVPUkWnE5sFqrfVlHhVy0ZEbzWc5DnqQ8Ai5NEez_PtDCnuqfd88lhKtoLIQRxqPhxUnMl2z50vhtszKSQVQ7QT_Pt4LHOeSlbGI17D3y_EPI6enVhZKqY0dlAYE5-1584soCEI_V2XCBFLk2PmOkWINJWqtIaQcvzm1IJ8D_ztnlBCoyvrvIgsvMYX0xrshdlc3ahnkgiccCvgyX2hDDBktwXzGG2aDxzeBRIVz-JIYTVJb9Bub5XwDwpjRghxKBKM8hoo1grHCf7Mc1g6ZisGfM25nEyZC1PY-l6ew2WIeMKAGKS4i1ytnztQtZplSx3Adx9MhJo_KVLE1QsHV7GPmOnLUX9D6-jgeK51w3lRKNHbQzxAjVGy2ysz6usZOLcZukc52C4oGdmW_x2gSuGkECaUzeVaZ1h_eFHtF0zTqGOBaisPA2w1p8ZGhyi7J1zdSY-tYCYgfBEXXe4nDw50HyMZE; tt_csrf_token=5QbQhlbI-qRCHHV_kYiPuRmfnsPJpHV6Z1go; csrfToken=Ki1lgx8k-zRQJYcL_7_y2wJ1HTUry2JL3EwQ; sid_guard=0b2f2a023d2ae0e1a8cd8abdb8dd7ea5%7C1758207659%7C15552000%7CTue%2C+17-Mar-2026+15%3A00%3A59+GMT; sid_ucp_v1=1.0.0-KDVlODk3YmRkYzVmNzU1YzUzYTJjN2MwNDE1YzNiZTEwZmVhYzFiYTAKGQiBiL7GxMKLoGIQq72wxgYYsws4CEAKSAQQAxoDc2cxIiAwYjJmMmEwMjNkMmFlMGUxYThjZDhhYmRiOGRkN2VhNQ; ssid_ucp_v1=1.0.0-KDVlODk3YmRkYzVmNzU1YzUzYTJjN2MwNDE1YzNiZTEwZmVhYzFiYTAKGQiBiL7GxMKLoGIQq72wxgYYsws4CEAKSAQQAxoDc2cxIiAwYjJmMmEwMjNkMmFlMGUxYThjZDhhYmRiOGRkN2VhNQ; s_v_web_id=verify_mfpjgz6x_mHxi86pU_1ODa_41DW_AkiP_l4omxjpEXkmL; passport_csrf_token=366a5673d7556593bc0ff55907c36cf9; passport_csrf_token_default=366a5673d7556593bc0ff55907c36cf9; odin_tt=84850f4f1cb6e148e01a3ef8d7f7694943da0106417f102c02508ae9e8f52093378c60815c1c44136e8ac4462fc1aa42d979e6f7c6d3cef94ca926969ad3d034d4f2d116caa959e45d7dda18d7ac1145; store-country-sign=MEIEDN4SsiY_vduIi4pIcwQgx2EbiWDj4_NyF0fn1EHJXqBf10mIvHRF9x4QiLqJX3oEEOZQ5PHyrWxp-Bx-vQG0pMs; msToken=O1mXMa20bM4Xrm0KZCOkHiqkbHi_uIJCuEFZYJmoP_Wvv_VJNOcOiBfOOGOa2pW6o3g33nhSjTuOHESLt7179ZKNjucMJm3WMySkPSog70giL4K6n_jrecX7CCbARVAmebIP8_hVXfWLFoAbzEAF6BDh9g=="
+        # Cookie for authentication (giữ nguyên giá trị, chỉ tách dòng cho dễ đọc)
+        self.cookie = (
+            "tt_chain_token=NXY2vq+Bf7QgLKxRuxwQmQ==; "
+            "d_ticket=9ed8ba9e7f560649c64a631822f0e99dce082; "
+            "ttwid=1%7CJPqtq2oITwOsE_W7yxTSRAi-BPH-K_RjtfAs0zDi5Jc%7C1743418462%7Ccd9eae413518d7700d"
+            "a4ced17519cc2b7827b5ed10fdfd41b8abda4466125c7a; "
+            "uid_tt=659d5c3f523ed5a506a175c0c3b8a21bb315984a75f1e095c2c7d5f5361605b2; "
+            "uid_tt_ss=659d5c3f523ed5a506a175c0c3b8a21bb315984a75f1e095c2c7d5f5361605b2; "
+            "sid_tt=0b2f2a023d2ae0e1a8cd8abdb8dd7ea5; "
+            "sessionid=0b2f2a023d2ae0e1a8cd8abdb8dd7ea5; "
+            "sessionid_ss=0b2f2a023d2ae0e1a8cd8abdb8dd7ea5; "
+            "store-idc=alisg; "
+            "store-country-code=vn; "
+            "store-country-code-src=uid; "
+            "tt-target-idc=alisg; "
+            "tt-target-idc-sign=lcEjHl9TOWQL659Rg1vYNb82LkuSGPHnIa9kTVPUkWnE5sFqrfVlHhVy0ZEbzWc5DnqQ8Ai5NEez_"
+            "PtDCnuqfd88lhKtoLIQRxqPhxUnMl2z50vhtszKSQVQ7QT_Pt4LHOeSlbGI17D3y_EPI6enVhZKqY0dlAYE5-"
+            "1584soCEI_V2XCBFLk2PmOkWINJWqtIaQcvzm1IJ8D_ztnlBCoyvrvIgsvMYX0xrshdlc3ahnkgiccCvgyX2hDDBk"
+            "twXzGG2aDxzeBRIVz-JIYTVJb9Bub5XwDwpjRghxKBKM8hoo1grHCf7Mc1g6ZisGfM25nEyZC1PY-l6ew2WIeMKAGK"
+            "S4i1ytnztQtZplSx3Adx9MhJo_KVLE1QsHV7GPmOnLUX9D6-jgeK51w3lRKNHbQzxAjVGy2ysz6usZOLcZukc52C4o"
+            "GdmW_x2gSuGkECaUzeVaZ1h_eFHtF0zTqGOBaisPA2w1p8ZGhyi7J1zdSY-tYCYgfBEXXe4nDw50HyMZE; "
+            "tt_csrf_token=5QbQhlbI-qRCHHV_kYiPuRmfnsPJpHV6Z1go; "
+            "csrfToken=Ki1lgx8k-zRQJYcL_7_y2wJ1HTUry2JL3EwQ; "
+            "sid_guard=0b2f2a023d2ae0e1a8cd8abdb8dd7ea5%7C1758207659%7C15552000%7CTue%2C+17-Mar-2026+15%3A00%3A59+GMT; "
+            "sid_ucp_v1=1.0.0-KDVlODk3YmRkYzVmNzU1YzUzYTJjN2MwNDE1YzNiZTEwZmVhYzFiYTAKGQiBiL7GxMKLoGIQq72w"
+            "xgYYsws4CEAKSAQQAxoDc2cxIiAwYjJmMmEwMjNkMmFlMGUxYThjZDhhYmRiOGRkN2VhNQ; "
+            "ssid_ucp_v1=1.0.0-KDVlODk3YmRkYzVmNzU1YzUzYTJjN2MwNDE1YzNiZTEwZmVhYzFiYTAKGQiBiL7GxMKLoGIQq72w"
+            "xgYYsws4CEAKSAQQAxoDc2cxIiAwYjJmMmEwMjNkMmFlMGUxYThjZDhhYmRiOGRkN2VhNQ; "
+            "s_v_web_id=verify_mfpjgz6x_mHxi86pU_1ODa_41DW_AkiP_l4omxjpEXkmL; "
+            "passport_csrf_token=366a5673d7556593bc0ff55907c36cf9; "
+            "passport_csrf_token_default=366a5673d7556593bc0ff55907c36cf9; "
+            "odin_tt=84850f4f1cb6e148e01a3ef8d7f7694943da0106417f102c02508ae9e8f52093378c60815c1c44136e8ac4462fc1"
+            "aa42d979e6f7c6d3cef94ca926969ad3d034d4f2d116caa959e45d7dda18d7ac1145; "
+            "store-country-sign=MEIEDN4SsiY_vduIi4pIcwQgx2EbiWDj4_NyF0fn1EHJXqBf10mIvHRF9x4QiLqJX3oEEOZQ5PHyrWx"
+            "p-Bx-vQG0pMs; "
+            "msToken=O1mXMa20bM4Xrm0KZCOkHiqkbHi_uIJCuEFZYJmoP_Wvv_VJNOcOiBfOOGOa2pW6o3g33nhSjTuO"
+            "HESLt7179ZKNjucMJm3WMySkPSog70giL4K6n_jrecX7CCbARVAmebIP8_hVXfWLFoAbzEAF6BDh9g=="
+        )
 
         self.headers = {
             "User-Agent": selected_ua,
             "Accept": "application/json, text/plain, */*",
             "Accept-Language": "vi-VN,vi;q=0.9,en;q=0.8",
-            "Accept-Encoding": "gzip, deflate, br",
+            # Tránh yêu cầu Brotli (br) vì requests chỉ tự giải nén br khi có thư viện brotli.
+            # Ta sẽ tự xử lý nếu server trả về br, nhưng không chủ động yêu cầu.
+            "Accept-Encoding": "gzip, deflate",
             "Connection": "keep-alive",
             "Referer": "https://www.tiktok.com/",
             "Origin": "https://www.tiktok.com",
@@ -270,11 +308,58 @@ class TikTokVideoScraper:
             print(f"🌐 Response Status: {response.status_code}")
 
             if response.status_code == 200:
+                # Thử parse JSON một cách an toàn, tự giải nén nếu cần
                 try:
                     return response.json()
-                except json.JSONDecodeError:
+                except Exception:
+                    # Nếu requests không tự giải nén (ví dụ br), ta thử thủ công
+                    content_encoding = response.headers.get(
+                        "Content-Encoding", ""
+                    ).lower()
+                    content_type = response.headers.get("Content-Type", "")
+                    raw = response.content
+                    decoded_text = None
+                    try:
+                        if "br" in content_encoding:
+                            try:
+                                import brotli  # type: ignore
+
+                                decoded_text = brotli.decompress(raw).decode(
+                                    "utf-8", "replace"
+                                )
+                            except Exception:
+                                # Nếu không có brotli hoặc lỗi, rơi xuống thử đoán
+                                decoded_text = None
+                        elif "gzip" in content_encoding:
+                            import gzip
+                            from io import BytesIO
+
+                            decoded_text = (
+                                gzip.GzipFile(fileobj=BytesIO(raw))
+                                .read()
+                                .decode("utf-8", "replace")
+                            )
+                        else:
+                            # Không có content-encoding đặc biệt, dùng utf-8
+                            decoded_text = raw.decode("utf-8", "replace")
+                    except Exception:
+                        decoded_text = None
+
+                    if decoded_text:
+                        try:
+                            return json.loads(decoded_text)
+                        except Exception:
+                            pass
+
+                    # Ghi log gọn gàng giúp chẩn đoán
+                    preview = (decoded_text or response.text or "").replace("\n", " ")[
+                        :300
+                    ]
                     print("❌ Không thể parse JSON response")
-                    print(f"Response text: {response.text[:200]}...")
+                    print(
+                        f"Content-Type: {content_type} | Content-Encoding: {content_encoding}"
+                    )
+                    print(f"Response preview: {preview}...")
                     return None
             elif response.status_code == 403:
                 print("❌ API Error 403: Bị chặn truy cập (có thể cần đổi IP/proxy)")
@@ -286,6 +371,7 @@ class TikTokVideoScraper:
                 print(f"❌ API Error: {response.status_code}")
                 print(f"Response: {response.text[:200]}...")
                 return None
+
         except requests.exceptions.Timeout:
             print("❌ Request timeout")
             return None
