@@ -5,6 +5,8 @@ from urllib.parse import urlencode
 
 import requests
 
+from proxy import get_proxy_once
+
 
 def get_sec_uid(username):
     """
@@ -300,11 +302,24 @@ class TikTokVideoScraper:
 
         # Random delay để tránh rate limit
         time.sleep(random.uniform(0.5, 1.5))
+        # Sử dụng proxy nếu có
+        proxy = get_proxy_once()
 
         try:
-            response = requests.get(
-                self.base_url, params=params, headers=headers, timeout=15
-            )
+            if proxy:
+                print(f"🌍 Sử dụng proxy: {proxy}")
+                response = requests.get(
+                    self.base_url,
+                    params=params,
+                    headers=headers,
+                    proxies=proxy,
+                    timeout=15,
+                )
+            else:
+                response = requests.get(
+                    self.base_url, params=params, headers=headers, timeout=15
+                )
+            print(response.text)
             print(f"🌐 Response Status: {response.status_code}")
 
             if response.status_code == 200:
@@ -380,6 +395,7 @@ class TikTokVideoScraper:
             return None
         except Exception as e:
             print(f"❌ Request failed: {e}")
+            print(response.text[:200] if "response" in locals() else "")
             return None
 
     def get_all_videos(self, sec_uid, max_videos=None, delay=2):
@@ -452,4 +468,5 @@ if __name__ == "__main__":
             print("❌ Không lấy được video nào")
         else:
             print(f"\n✅ Hoàn thành! Đã lấy {len(videos)} video")
+            scraper.save_to_json(videos)
             scraper.save_to_json(videos)
